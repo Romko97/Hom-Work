@@ -1,2 +1,2 @@
 # Home Work
-домашка з курсів
+this repository for homework
