@@ -1,2 +1,2 @@
-# Hom-Work
+# Home Work
 домашка з курсів
