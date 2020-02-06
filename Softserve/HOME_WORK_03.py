@@ -23,3 +23,4 @@ substring = ["better", "never", "is"]
 for i in range(len(substring)):
     count = Zen.count(substring[i])
     print(count)
+
