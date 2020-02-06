@@ -24,3 +24,8 @@ for i in range(len(substring)):
     count = Zen.count(substring[i])
     print(count)
 
+upperString = Zen.upper()
+print(upperString)
+
+replaced_i_to_ampersand = Zen.replace('i', '&')
+print(replaced_i_to_ampersand)
