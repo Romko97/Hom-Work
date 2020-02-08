@@ -76,6 +76,7 @@ while (number > 0):
     Reverse = (Reverse * 10) + Reminder
     number //= 10
 print(f"Revers of {originNumber} is {Reverse}")
+
 print('\n............................\n')
 
 print("the third way of solution\n")
@@ -88,7 +89,7 @@ print(number[::-1])
 print(sorted(number))
 
 print('\n............................\n')
-#Поміняти між собою значення двох змінних, не використовуючи третьої змінної.
+# Поміняти між собою значення двох змінних, не використовуючи третьої змінної.
 a = input("first var: ")
 b = input("second var: ")
 # print(f"first var:{a} \nsecond var: {b}")
