@@ -95,7 +95,13 @@ print(spysok)
 # 5.  Вивести числа Фібоначі включно до введеного числа n, використовуючи
 #  цикли. (Послідовність чисел Фібоначі 0, 1, 1, 2, 3, 5, 8, 13 і т.д.)
 '''
-pass
+number = int(input("Enter the number for generat sequence of namber Fibonacci:"))
+fibo = [0, 1]
+for i in range(number-1):
+    fibo[i+1] = fibo[i-1] + fibo[i]
+    fibo.append(fibo[i+1])
+fibo.remove(fibo[i+1])
+print(fibo)
 '''
 # 6.  Створити список, що складається з чотирьох елементів типу string. Потім,
 #  за допомогою циклу for, вивести елементи по черзі на екран.
