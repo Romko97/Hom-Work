@@ -14,3 +14,4 @@ def zeroFuel(distance_to_pump, mpg, fuel_left):
 
 
 zeroFuel(141, 50, 2)
+

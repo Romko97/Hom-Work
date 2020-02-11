@@ -12,3 +12,4 @@ def reverse(st):
 
 def reverse(st):
     return " ".join(reversed(st.split())).strip()
+

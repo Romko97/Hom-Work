@@ -19,4 +19,4 @@ def enough(cap, on, wait):
 
 
 enough(10, 5, 10)
-    
+
