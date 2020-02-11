@@ -95,3 +95,4 @@ b = input("second var: ")
 # print(f"first var:{a} \nsecond var: {b}")
 a, b = b, a
 print(f"first var:{a} \nsecond var: {b}")
+
