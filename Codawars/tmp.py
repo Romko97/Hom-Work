@@ -1,5 +1,4 @@
-def enough(cap, on, wait):
-    return 0 if cap >= (on + wait) else (on + wait - cap)
 
-
-enough(10, 5, 10)
+# Write a function taking in a string like WOW this is REALLY amazing and
+# returning Wow this is really amazing. String should be capitalized and
+# properly spaced. Using re and string is not allowed.
