@@ -6,6 +6,7 @@
 def fung(*args):
     print(sum(args)/len(args))
 
+
 '''
 fung(2,24,69)
 '''
@@ -48,8 +49,6 @@ maximum(2, 1)
 #  і викликати їх в головній програмі в залежності від вибору користувача)
 
 
-
-
 def triangle(a, h):
     '''calculat the area of the triangle '''
     S = 0.5 * a * h
@@ -61,11 +60,13 @@ def rectangle(a, b):
     S = a * b
     return S
 
+
 def circle(r):
     '''calculat the area of the circle'''
     p = 3.14159265358979
     S = p * r ** 2
     return S
+
 
 def choice():
     '''Calculat the area of the triangle, rectangle, circle'''
@@ -83,6 +84,7 @@ def choice():
         return circle(r)
     else:
         print("wrong choice")
+
 
 '''
 print(choice())
@@ -119,6 +121,8 @@ else:
 '''
 
 # 5.  Написати функцію, яка обчислює суму цифр введеного числа.
+
+
 def sum_of_digit_of_umber(number):
     '''calculates the sum of the digits of
     the number entered'''
@@ -197,20 +201,35 @@ main()
 # введеного користувачем.
 
 
-def fibonacci(deep):
-    lis=[] 
-    a = 0 
-    while a < deep:
-        lis.append(a+(1+a))
-        a += 1
-        
-    print(lis)
+def fibonacci(n):
+    if n == 0:
+        return 0
+    elif n == 1:
+        return 1
+    else:
+        return fibonacci(n-1) + fibonacci(n-2)
 
 
-
-
-
+'''
 a = int(input("Enter the number for generat sequence of namber Fibonacci:"))
-fibonacci(a)
-# 8.  Написати програму, яка обчислює дискримінант квадратного
-# рівняння
+print(fibonacci(a))
+'''
+
+# 8.  Написати програму, яка обчислює
+# дискримінант квадратного рівняння
+
+
+def discriminator(a, b, c):
+    print(f"D = {b}^2-4*{a}*{c}")
+    return b ** 2 - 4 * a * c
+
+'''
+print("((a*x)^2)+(b*x)+c=0")
+print("enter the coeficients:")
+a1 = float(input("a = "))
+b1 = float(input("b = "))
+c1 = float(input("c = "))
+print(f"(({a1} x)**2)+({b1}*x)+{c1} = 0")
+print("D = ", discriminator(a1, b1, c1))
+'''
+
