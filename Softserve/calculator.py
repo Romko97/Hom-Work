@@ -1,4 +1,4 @@
-
+'''
 
 def main():
     """prompts you to choose an action"""
@@ -38,8 +38,8 @@ def multiplication():
     a = float(input(": "))
     b = float(input(": "))
     return f"{a} * {b} = {a * b}"
-
-
+'''
+'''
 def division():
     """divids numbers"""
     lis = []
@@ -53,15 +53,27 @@ def division():
             d = lis[0]
             for i in range(1, len(lis)):
                 d = d/lis[i]
-                print(f"/{lis[i]}="d)
+                print(f"/{lis[i]}=",d)
             return d
         else:
             continue
-    
+'''
 
 
-def exit_from_program():
-    return "Thenk you for choosig our program"
+def division(*args):
+    new = []
+    for args in input('Введіть числа для ділення: ').split():
+        num = float(args)
+        new.append(num)
+    new_num = 0
+    for _ in new:
+        if new_num != [1]:
+            new_num = new[0] / new[1]
+            del new[:2]
+            new.append(new_num)
+            new = new[::-1]
+    print(f'Частка чисел:{new[0]}\n')
 
 
-main()
+
+division()
