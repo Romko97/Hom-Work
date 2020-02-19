@@ -56,10 +56,9 @@ def create_array2(n):
         i += 1
     return res
 
-'''
+
 distance(1, 1, 0, 0)
 make_move(6)
 filter_words("HELLO    world!")
 create_array(5)
 create_array2(5)
-'''

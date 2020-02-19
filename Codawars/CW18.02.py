@@ -23,10 +23,6 @@ def count_positives_sum_negatives(arr):
     return lis
 
 
-
-print(count_positives_sum_negatives([76, -15, 17, 62, -53, 69, -50, -80, 74, 19, 67, 99, -76, -69, 87, -52, 75, 39, 17, -61, -29]))
-
-
 def is_beter(arr):
     if not arr: return []
     pos, neg = 0, 0
@@ -38,13 +34,12 @@ def is_beter(arr):
     return [pos, neg]
 
 
-print(is_beter([76, -15, 17, 62, -53, 69, -50, -80, 74, 19, 67, 99, -76, -69, 87, -52, 75, 39, 17, -61, -29]))
-
-
 def is_clever(arr):
     return [len([i for i in arr if i > 0])] + [sum(i for i in arr if i < 0)] if arr else []
 
 
+print(count_positives_sum_negatives([76, -15, 17, 62, -53, 69, -50, -80, 74, 19, 67, 99, -76, -69, 87, -52, 75, 39, 17, -61, -29]))
+print(is_beter([76, -15, 17, 62, -53, 69, -50, -80, 74, 19, 67, 99, -76, -69, 87, -52, 75, 39, 17, -61, -29]))
 print(is_clever([76, -15, 17, 62, -53, 69, -50, -80, 74, 19, 67, 99, -76, -69, 87, -52, 75, 39, 17, -61, -29]))
  
  # ого о_О
@@ -55,7 +50,6 @@ print(is_clever([76, -15, 17, 62, -53, 69, -50, -80, 74, 19, 67, 99, -76, -69, 8
 
 def reverse_list(l):
     return l[::-1]
-
 
 
 def reverse_list1(l):
@@ -76,6 +70,8 @@ print(reverse_list2([1,2,3,4]))
 # below the number passed in.
 
 # Note: If the number is a multiple of both 3 and 5, only count it once.
+
+
 def solution(number):
     a = 0
     for i in range(1,number):
@@ -86,17 +82,8 @@ def solution(number):
     return a
 
 
-#describe("Multiples of 3 and 5")
-#it("should handle basic cases")
-
-print(solution(10)) # 23)
-
-
 def is_betterone(number):
     return sum(i for i in range(number) if i % 3 ==0 or i % 5 == 0)
-
-
-print(is_betterone(10)) # 23)
 
 
 def solution_clever(number):
@@ -107,4 +94,6 @@ def solution_clever(number):
     return result
 
 
+print(solution(10)) # 23)
+print(is_betterone(10)) # 23)
 print(solution_clever(10))   # 23.4000000000002 але чому ????
