@@ -6,15 +6,15 @@ DISPLA_WIDTH = 600
 DISPLA_HEIGH = 600
 screen = pygame.display.set_mode((DISPLA_WIDTH, DISPLA_HEIGH))
 pygame.display.set_caption("Hello world!")
-X = 0
-Y = 0
+X = 200
+Y = 200
 width = 100
 height = 100
 vol = 1
 run = True
 
-X1 = 100
-Y1 = 100
+X1 = 300
+Y1 = 300
 width1 = 100
 height1 = 100
 X3 = X1
@@ -61,6 +61,6 @@ while run:
     screen.fill((255, 255, 255))
     pygame.draw.rect(screen, (r, g, b), [X, Y, width, height])
     pygame.draw.rect(screen, (r1, g1, b1), [X1, Y1, width1, height1])
-    pygame.draw.rect(screen, (r3, g3, b3), [X3, Y3, width3, height3])
+    #pygame.draw.rect(screen, (r3, g3, b3), [X3, Y3, width3, height3])
     pygame.display.update()    
     clock.tick(60)  

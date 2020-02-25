@@ -15,7 +15,7 @@ pygame.display.update()
 background_position = [0, 0]
 # Load and set up graphics.
 # background_image = pygame.image.load("saturn_family1.jpg").convert()
-player_image = pygame.image.load("/home/roman/Documents/Hom-Work-master/Python/Softserve/GAME/car.png").convert()
+player_image = pygame.image.load("/home/roman/Documents/HW2020/Python/Softserve/GAME/car.png").convert()
 # If the image does not have a transparent layer, then to install it,
 # You must use the set_colorkey () method of the Surface class:
 player_image.set_colorkey((0, 0, 0))

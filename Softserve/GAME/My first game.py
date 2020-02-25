@@ -9,8 +9,8 @@ pygame.display.set_caption("My first game")
 
 x = 10
 y = 10
-width = 10
-height = 10
+width = 100
+height = 100
 vol = 5
 
 
