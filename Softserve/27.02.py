@@ -71,8 +71,46 @@ finally:
 # день тижня, який відповідає цьому числу (1 це Понеділок, 2 це Вівторок і тд) 
 # Врахувати випадки введення чисел від 8 і більше, а також випадки введення не числових даних
 try:
-    week = {'1':'Mon','2':'Tue','3':'Wed','4':'Thu','5':'Fri','6':'Sut','7':'Sun'}
+    week = {
+    '1':'Mon',
+    '2':'Tue',
+    '3':'Wed',
+    '4':'Thu',
+    '5':'Fri',
+    '6':'Sut',
+    '7':'Sun'
+    }
     numberday= (input("Enter from 1 to 7 number of week:"))
     print(week[numberday])
 except KeyError:
-    print("wrong input"                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  
+    print("wrong input") 
+
+
+d = {
+    1: 'Monday',
+    2: 'Tuesday',
+    3: 'Wednesday',
+    4: 'Thursday',
+    5: 'Friday',
+    6: 'Saturday',
+    7: 'Sunday'
+}
+while True:
+    try:
+        i = int(input('Enter the day of the week: '))
+    except ValueError:
+        print('You did not enter a number!')
+    else:
+        print(d.get(i, 'There is no such day of the week!'))
+
+###################################
+
+day_list = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"]
+try:
+    num = int(input("Enter number from 1 to 7: "))
+    if num <= 0 or num > 7:
+        raise IndexError("Youre number is out of range")
+    print(day_list[num-1])
+except ValueError:
+    print("Wrong Input!")
+

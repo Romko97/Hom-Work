@@ -13,4 +13,6 @@
 # considered to be in ALL CAPS.
 
 def is_uppercase(inp):
-    return False if inp is 
+    return inp.isupper()
+
+is_uppercase("I sgksjfngAM DONALD")
