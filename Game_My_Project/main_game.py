@@ -2,6 +2,48 @@ from tkinter import *
 import random
 import time
 
+
+class Game():
+    def __init__(self):
+        self.tk = Tk()
+        self.tk.title("Romans game")
+        self.tk.resizable(False,False)
+        self.tk.wm_attributes("-topmost", 1)
+        self.canvas = Canvas(self.tk, width = 500, height = 500, highlightthickness = 0)
+        self.canvas.pack()
+        self.tk.update()
+        self.canvas_height = 500
+        self.canvas_width = 500
+        self.bg = PhotoImage(file = 'background1.gif')
+        self.bg1 = PhotoImage(file = 'background.gif')
+        w = self.bg.width()
+        h = self.bg.height()
+        for x in range(1,5,2):
+            for y in range(0,5,2):
+                self.canvas.create_image(x*w,y*h, image = self.bg, anchor = 'nw')
+        for x in range(0,5,2):
+            for y in range(1,5,2):
+                self.canvas.create_image(x*w,y*h, image = self.bg, anchor = 'nw')
+
+        for x in range(0,5,2):
+            for y in range(0,5,2):
+                self.canvas.create_image(x*w,y*h, image = self.bg1, anchor = 'nw')
+        for x in range(1,5,2):
+            for y in range(1,5,2):
+                self.canvas.create_image(x*w,y*h, image = self.bg1, anchor = 'nw')
+                
+        self.sprites = []
+        self.running = True
+    
+    def mainloop(self):
+        while True:
+            if self.running == True:
+                for sprite in self.sprites:
+                    sprite.move()
+            self.tk.update_idletasks()
+            self.tk.update()
+            time.sleep(0.01)
+
 class Coords:
     def __init__(self, x1 = 0, y1 = 0, x2 = 0, y2 = 0):
         self.x1 = x1
@@ -17,7 +59,6 @@ def within_x(co1, co2):
         return True
     else:
         return False
-
 
 def within_y(co1, co2):
     if (co1.y1 > co2.y1 and co1.y1 < co2.y2)\
@@ -72,47 +113,45 @@ class PlatformSprite(Sprite):
         self.image = game.canvas.create_image(x,y,image=self.photo_image,anchor="nw")
         self.coordinates = Coords(x,y,x+width,y+height)
 
-
-class Game():
+class StickFigureSprite(Sprite):
     def __init__(self):
-        self.tk = Tk()
-        self.tk.title("Romans game")
-        self.tk.resizable(False,False)
-        self.tk.wm_attributes("-topmost", 1)
-        self.canvas = Canvas(self.tk, width = 500, height = 500, highlightthickness = 0)
-        self.canvas.pack()
-        self.tk.update()
-        self.canvas_height = 500
-        self.canvas_width = 500
-        self.bg = PhotoImage(file = 'background1.gif')
-        self.bg1 = PhotoImage(file = 'background.gif')
-        w = self.bg.width()
-        h = self.bg.height()
-        for x in range(1,5,2):
-            for y in range(0,5,2):
-                self.canvas.create_image(x*w,y*h, image = self.bg, anchor = 'nw')
-        for x in range(0,5,2):
-            for y in range(1,5,2):
-                self.canvas.create_image(x*w,y*h, image = self.bg, anchor = 'nw')
+        Sprite.__init__(self.game)
+        self.images_left = [
+            PhotoImage(file="figur-L1.gif"),
+            PhotoImage(file="figur-L2.gif"),
+            PhotoImage(file="figur-L3.gif")
+        ]
+        self.images_right = [
+            PhotoImage(file="figur-R1.gif"),
+            PhotoImage(file="figur-R2.gif"),
+            PhotoImage(file="figur-R3.gif")
+        ]
+        self.image = game.canvas.create_image(200,470,image=self.images_left[0], anchor="nw")
+        self.x = -2
+        self.y = 0
+        self.current_image = 0
+        self.current_image_add = 1
+        self.jump_count = 0
+        self.last_time = time.time()
+        self.coordinates = Coords()
+        game.canvas.bind_all('<KeyPress-Left>', self.turn_left)
+        game.canvas.bind_all('<KeyPress-Right>', self.turn_right)
+        game.canvas.bind_all('<Spass>', self.jump)
 
-        for x in range(0,5,2):
-            for y in range(0,5,2):
-                self.canvas.create_image(x*w,y*h, image = self.bg1, anchor = 'nw')
-        for x in range(1,5,2):
-            for y in range(1,5,2):
-                self.canvas.create_image(x*w,y*h, image = self.bg1, anchor = 'nw')
-                
-        self.sprites = []
-        self.running = True
-    
-    def mainloop(self):
-        while True:
-            if self.running == True:
-                for sprite in self.sprites:
-                    sprite.move()
-            self.tk.update_idletasks()
-            self.tk.update()
-            time.sleep(0.01)
+        def turn_left(self, ent):
+            if self.y == 0:
+                self.x = -2
+        
+        def turn_right(self, evt):
+            if self.y == 0:
+                self.x = 2
+        
+        def jump(self, evt):
+            if self.y == 0:
+                self.y = -4
+                self.jump_count = 0
+
+
 
 g = Game()
 platform1 = PlatformSprite(g, PhotoImage(file="platform1.gif"),0,480,100,10)
