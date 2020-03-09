@@ -31,6 +31,20 @@ class Ghost(object):
 # to be subclasses of Human. Your job is to implement the Human, Man and Woman classes.
 
 
+class Human:
+    def __init__(self):
+        pass
+class Man(Human):
+    def __init__(self):
+        pass
+class Woman(Human):
+    def __init__(self):
+        pass
+
+def God():
+    Adam = Man()
+    Eva = Woman()
+    return [Adam,Eva]
 
 
 # Classy Classes
@@ -41,3 +55,8 @@ class Ghost(object):
 # been created. You must fill in the Constructor method to
 # accept a name as string and an age as number, complete the
 # get Info property and getInfo method/Info getter which should return
+
+
+class Person:
+    def __init__(self,name,age):
+        self.info = f"{name}s age is {str(age)}"
