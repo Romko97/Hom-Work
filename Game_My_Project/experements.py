@@ -3,7 +3,6 @@ import random
 import time
 
 class Game:
-    """Головний контролюючий клас"""
     def __init__(self):
         self.tk = Tk()
         self.tk.title("Romans game")
@@ -15,7 +14,9 @@ class Game:
         self.canvas_height = 500
         self.canvas_width = 500
         self.bg = PhotoImage(file = 'background3.gif')
-        self.canvas.create_image(0,0, image = self.bg, anchor = 'nw')
+        w = self.bg.width()
+        h = self.bg.height()
+        #self.canvas.create_image(0,0, image = self.bg, anchor = 'nw')
         self.sprites = []
         self.running = True
     
@@ -96,22 +97,22 @@ class PlatformSprite(Sprite):
         self.photo_image = photo_image
         self.image = game.canvas.create_image(x,y,image=self.photo_image,anchor="nw")
         self.coordinates = Coords(x,y,x+width,y+height)
+        #print(self.image)
 
 class StickFigureSprite(Sprite):
-    """ Клас обєкта чоловічка """
     def __init__(self, game):
         Sprite.__init__(self, game)
         self.images_left = [
             PhotoImage(file="figure-L1.gif"),
             PhotoImage(file="figure-L2.gif"),
             PhotoImage(file="figure-L3.gif")
-        ]
+            ]
         self.images_right = [
             PhotoImage(file="figure-R1.gif"),
             PhotoImage(file="figure-R2.gif"),
-            PhotoImage(file="figure-R3.gif")
-        ]
-        self.image = game.canvas.create_image(200,470, image = self.images_left[0], anchor='nw')
+            PhotoImage(file="figure-R3.gif")]
+        self.image = game.canvas.create_image(200,0, image=self.images_left[0], anchor='nw')
+        #print(self.image)
         self.x = -2
         self.y = 0
         self.current_image = 0
@@ -178,7 +179,7 @@ class StickFigureSprite(Sprite):
         top = True
         bottom = True
         falling = True
-        if self.y>0 and co.y2>=self.game.canvas_height:
+        if self.y > 0 and co.y2>=self.game.canvas_height:
             self.y=0
             bottom = False
         elif self.y<0 and co.y1<=0:
@@ -217,7 +218,7 @@ class StickFigureSprite(Sprite):
                 if sprite.endgame:
                     self.game.running = False # Чоловічок торкнувся дверей
         if falling and bottom and self.y == 0 and co.y2 < self.game.canvas_height:
-            self.y = 4
+            self.y = 0
         self.game.canvas.move(self.image, self.x, self.y)
 
 
@@ -243,7 +244,7 @@ platform6 = PlatformSprite(g, PhotoImage(file="platform2.gif"),50,300,66,10)
 platform7 = PlatformSprite(g, PhotoImage(file="platform2.gif"),170,120,66,10)
 platform8 = PlatformSprite(g, PhotoImage(file="platform2.gif"),45,60,66,10)
 platform9 = PlatformSprite(g, PhotoImage(file="platform3.gif"),170,250,32,10)
-platform10 = PlatformSprite(g, PhotoImage(file="platform3.gif"),230,200,32,10)
+platform10 = PlatformSprite(g,PhotoImage(file="platform3.gif"),230,200,32,10)
 g.sprites.append(platform1)
 g.sprites.append(platform2)
 g.sprites.append(platform3)
