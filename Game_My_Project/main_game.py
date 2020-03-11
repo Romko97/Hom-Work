@@ -5,21 +5,21 @@ import time
 class Game:
     """Головний контролюючий клас"""
     def __init__(self):
-        self.tk = Tk()
+        self.tk = Tk()  
         self.tk.title("Romans game")
-        self.tk.resizable(False,False)
+        self.tk.resizable(False,False) # Фіксуємо вікно 
         self.tk.wm_attributes("-topmost", 1)
         self.canvas = Canvas(self.tk, width = 500, height = 500, highlightthickness = 0)
         self.canvas.pack()
         self.tk.update()
         self.canvas_height = 500
         self.canvas_width = 500
-        self.bg = PhotoImage(file = 'background3.gif')
+        self.bg = PhotoImage(file = 'background3.gif') #  задній фон
         self.canvas.create_image(0,0, image = self.bg, anchor = 'nw')
         self.sprites = []
         self.running = True
-        # текст яки появиться коли ви закінчете гру
-        self.game_over_text = self.canvas.create_text(250,250, text='ПЕРЕМОГА', state='hidden')
+        # текст який появиться коли ви закінчете гру
+        self.game_over_text = self.canvas.create_text(250,250, text='ВІТАЄМО\n    ВАС\nЗ ПЕРЕМОГОЮ :)', state='hidden')
     
     def mainloop(self):
         while True:
@@ -35,6 +35,7 @@ class Game:
             time.sleep(0.01)
 
 class Coords:
+    """ координати обєкта """
     def __init__(self, x1 = 0, y1 = 0, x2 = 0, y2 = 0):
         self.x1 = x1
         self.y1 = y1
@@ -42,6 +43,7 @@ class Coords:
         self.y2 = y2
 
 def within_x(co1, co2):
+    """ перевірка перетину обєктів в межах координати Х """
     if (co1.x1 > co2.x1 and co1.x1 < co2.x2)\
     or (co1.x2 > co2.x1 and co1.x2 < co2.x2)\
     or (co2.x1 > co1.x1 and co2.x1 < co1.x2)\
@@ -51,6 +53,7 @@ def within_x(co1, co2):
         return False
 
 def within_y(co1, co2):
+    """ перевірка перетину обєктів в межах координати Y """
     if (co1.y1 > co2.y1 and co1.y1 < co2.y2)\
     or (co1.y2 > co2.y1 and co1.y2 < co2.y2)\
     or (co2.y1 > co1.y1 and co2.y1 < co1.y2)\
@@ -60,24 +63,28 @@ def within_y(co1, co2):
         return False
 
 def collided_left(co1, co2):
+    """ перевірка зіткнення одного обєкта з іншим по лівому боці """
     if within_y(co1, co2):
         if co1.x1 <= co2.x2 and co1.x1 >= co2.x1:
             return True
         return False
 
 def collided_right(co1, co2):
+    """ перевірка зіткнення одного обєкта з іншим по правому боці """
     if within_y(co1, co2):
         if co1.x2 >= co2.x1 and co1.x2 <= co2.x2:
             return True
         return False
 
 def collided_top(co1, co2):
+    """ перевірка зіткнення одного обєкта з іншим по верхній частині обєкта """
     if within_x(co1, co2):
         if co1.y1 <= co2.y2 and co1.y1 >= co2.y1:
             return True
         return False
 
 def collided_bottom(y, co1, co2):
+    """ перевірка зіткнення одного обєкта з іншим по нижній частині обєкта """
     if within_x(co1, co2):
         y_calc = co1.y2 + y
         if y_calc >= co2.y1 and y_calc <= co2.y2:
@@ -85,15 +92,17 @@ def collided_bottom(y, co1, co2):
     return False
 
 class Sprite:
+    """ Батьківський клас елементів гри"""
     def __init__(self, game):
         self.game = game
-        self.endgame = False
+        self.endgame = False   # позначає кінець ігри
         self.coordinates = None
     
     def move(self):
         pass
 
     def coords(self):
+        """ повертає змінну обєкта coordinates"""
         return self.coordinates
 
 class PlatformSprite(Sprite):
@@ -129,25 +138,34 @@ class StickFigureSprite(Sprite):
         game.canvas.bind_all('<KeyPress-Left>', self.turn_left)
         game.canvas.bind_all('<KeyPress-Right>', self.turn_right)
         game.canvas.bind_all('<KeyPress-Up>', self.jump)
+        game.canvas.bind_all('<KeyPress-Down>', self.stop)
     
     def turn_left(self, evt):
+        """ рух в ліву сторону"""
         if self.y == 0:
             self.x = -2
         
     def turn_right(self, evt):
+        """ рух в праву сторону"""
         if self.y == 0:
             self.x = 2
         
-    def jump(self, evt): # БАГ КОЛИ Х = 2 і У = -4 (біг на право і стрибок)
+    def jump(self, evt):
+        """ стрибок """
         if self.y == 0:
             self.y = -4
             self.jump_count = 0
     
+    def stop(self, evt):
+        """зупинити рух"""
+        if self.y == 0:
+            self.x = 0
+    
     def animate(self):
         if self.x!=0 and self.y==0:
             if time.time()-self.last_time>0.1:
-                self.last_time=time.time()
-                self.current_image+=self.current_image_add
+                self.last_time = time.time()
+                self.current_image += self.current_image_add
                 if self.current_image>=2:
                     self.current_image_add=-1
                 if self.current_image<=0:
@@ -193,14 +211,14 @@ class StickFigureSprite(Sprite):
         elif self.y < 0 and co.y1 <= 0:
             self.y = 0
             top = False
-        if self.x > 0 and co.x2 >= self.game.canvas_width: # перевірка чи не стукнувся чоловічок в правий край екрану
+        if self.x > 0 and co.x2 >= self.game.canvas_width: # перевірка чи не стукнувся чоловічок в правий край вікна
             self.x = 0  #  Якщо так  то ми зупиняємо чоловічка по осі х 
             right = False
-        elif self.x < 0 and co.x1 <=0: # перевірка чи не стукнувся чоловічок в лівик край екрану
-            self.x = 0
+        elif self.x < 0 and co.x1 <=0: # перевірка чи не стукнувся чоловічок в лівик край вікна
+            self.x = 0  #  Якщо так  то ми зупиняємо чоловічка по осі х 
             left = False
         for sprite in self.game.sprites:
-            if sprite == self:
+            if sprite == self: #  Якщо спрайт це той самий обєк пропускаємо 1 ітерацію
                 continue
             sprite_co = sprite.coords()
             if top and self.y < 0 and collided_top(co, sprite_co):
