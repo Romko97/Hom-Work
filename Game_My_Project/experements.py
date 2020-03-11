@@ -111,7 +111,7 @@ class StickFigureSprite(Sprite):
             PhotoImage(file="figure-R1.gif"),
             PhotoImage(file="figure-R2.gif"),
             PhotoImage(file="figure-R3.gif")]
-        self.image = game.canvas.create_image(200,0, image=self.images_left[0], anchor='nw')
+        self.image = game.canvas.create_image(200,200, image=self.images_left[0], anchor='nw')
         #print(self.image)
         self.x = -2
         self.y = 0
@@ -122,7 +122,7 @@ class StickFigureSprite(Sprite):
         self.coordinates = Coords()
         game.canvas.bind_all('<KeyPress-Left>', self.turn_left)
         game.canvas.bind_all('<KeyPress-Right>', self.turn_right)
-        game.canvas.bind_all('<space>', self.jump)
+        game.canvas.bind_all('<KeyPress-Up>', self.jump)
     
     def turn_left(self, ent):
         if self.y == 0:
@@ -133,9 +133,9 @@ class StickFigureSprite(Sprite):
             self.x = 2
         
     def jump(self, evt):
-        if self.y == 0:
-            self.y = -4
-            self.jump_count = 0
+        self.y = -4
+            # self.y = -4
+            # self.jump_count = 0
     
     def animate(self):
         if self.x!=0 and self.y==0:
@@ -182,13 +182,13 @@ class StickFigureSprite(Sprite):
         if self.y > 0 and co.y2>=self.game.canvas_height:
             self.y=0
             bottom = False
-        elif self.y<0 and co.y1<=0:
+        if self.y < 0 and co.y1<=0:
             self.y=0
             top = False
         if self.x > 0 and co.x2 >= self.game.canvas_width:
             self.x = 0
             right = False
-        elif self.x < 0 and co.x1 <=0:
+        if self.x < 0 and co.x1 <=0:
             self.x = 0
             left = False
         for sprite in self.game.sprites:
