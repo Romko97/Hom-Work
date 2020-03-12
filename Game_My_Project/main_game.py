@@ -106,11 +106,41 @@ class Sprite:
         return self.coordinates
 
 class PlatformSprite(Sprite):
+    """Клас платформи"""
     def __init__(self, game, photo_image, x, y, width, height):
         Sprite.__init__(self, game)
         self.photo_image = photo_image
         self.image = game.canvas.create_image(x,y,image=self.photo_image,anchor="nw")
         self.coordinates = Coords(x,y,x+width,y+height)
+
+class MovingPlatformSprite(PlatformSprite):
+    """ Рухливі платформи"""
+    def __init__(self, game, photo_image, x, y, width, height):
+        PlatformSprite.__init__(self, game, photo_image, x, y, width, height) # це означає що будь-який обєкт класу 
+        # буде облаштовано так само як обєкт класу PlatformSprite
+        self.x = 0.5
+        self.counter = 0 # лічильник просигналізує коли потрібно міняти рух
+        self.last_time = time.time()
+        self.width = width
+        self.height = height
+
+    def coords(self):
+        """ Визначення позиції """
+        xy=self.game.canvas.coords(self.image)
+        self.coordinates.x1 = xy[0]
+        self.coordinates.y1 = xy[1]
+        self.coordinates.x2 = xy[0] + 27
+        self.coordinates.y2 = xy[1] + 30
+        return self.coordinates
+        
+    def move(self):
+        if time.time() - self.last_time > 0.03:
+            self.last_time = time.time()
+            self.game.canvas.move(self.image, self.x,0)
+            self.counter = self.counter + 1 
+            if self.counter > 20:
+                self.x = self.x * -1
+                self.counter = 0
 
 class StickFigureSprite(Sprite):
     """ Клас обєкта чоловічка """
@@ -269,7 +299,7 @@ class DoorSprite(Sprite):
         self.image = game.canvas.create_image(x, y, image = self.closed_door, anchor='nw')
         # Координати дверей
         self.coordinates = Coords(x, y, x + (width/2), y + height)
-        self.endgame = True # ця змінна є тру поки чоловічок не торкнеться спрайту дверей
+        self.endgame = True # ця змінна стає тру коли чоловічок торкнеться спрайту дверей
     
     def opendoor(self):
         """ зображує відчинені двері """
@@ -292,7 +322,7 @@ platform6 = PlatformSprite(g, PhotoImage(file="platform2.gif"),50,300,66,10)
 platform7 = PlatformSprite(g, PhotoImage(file="platform2.gif"),170,120,66,10)
 platform8 = PlatformSprite(g, PhotoImage(file="platform2.gif"),45,60,66,10)
 platform9 = PlatformSprite(g, PhotoImage(file="platform3.gif"),170,250,32,10)
-platform10 = PlatformSprite(g, PhotoImage(file="platform3.gif"),230,200,32,10)
+platform10 =PlatformSprite(g, PhotoImage(file="platform3.gif"),230,200,32,10)
 g.sprites.append(platform1)
 g.sprites.append(platform2)
 g.sprites.append(platform3)
